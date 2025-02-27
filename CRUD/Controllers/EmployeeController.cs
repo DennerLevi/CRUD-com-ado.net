@@ -10,12 +10,11 @@ namespace CRUD.Controllers
     {
         private readonly EmployeeBUS _bus;
 
-        // Supondo que você injete via appsettings ou algo assim:
-        private readonly string _connectionString = "SuaConnectionStringAqui";
-
-        public EmployeeController()
+        public EmployeeController(IConfiguration config)
         {
-            _bus = new EmployeeBUS(_connectionString);
+            // Ler a string do appsettings
+            var connectionString = config.GetConnectionString("DefaultConnection");
+            _bus = new EmployeeBUS(connectionString);
         }
 
         [HttpGet("ReturnEmployees")]
